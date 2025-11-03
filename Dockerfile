@@ -14,7 +14,8 @@ RUN npm install
 COPY client/ ./
 
 # Build the client application
-RUN npm run build
+//RUN npm run build
+RUN chmod +x node_modules/.bin/webpack && npm run build
 
 # Set the working directory in the container for the server
 WORKDIR /usr/src/app/server
