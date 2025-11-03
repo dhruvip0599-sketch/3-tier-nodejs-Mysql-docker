@@ -14,10 +14,11 @@ RUN npm install
 COPY client/ ./
 
 # Ensure webpack binary is executable
-RUN chmod +x ./node_modules/.bin/webpack
+/RUN chmod +x ./node_modules/.bin/webpack
 
 # Build the client application
-RUN npm run build
+/RUN npm run build
+RUN npx webpack --mode production
 
 
 
