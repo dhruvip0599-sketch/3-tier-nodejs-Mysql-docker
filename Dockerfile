@@ -1,5 +1,5 @@
 # Use an alpine Node.js runtime as a parent image
-FROM node:14
+FROM node:14 alpine
 
 # Set the working directory in the container for the client
 WORKDIR /usr/src/app/client
@@ -17,7 +17,9 @@ COPY client/ ./
 RUN chmod +x ./node_modules/.bin/webpack
 
 # Build the client application
-RUN npm run build
+//RUN npm run build
+RUN npx webpack --mode production
+
 
 # Set the working directory in the container for the server
 WORKDIR /usr/src/app/server
