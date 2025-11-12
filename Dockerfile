@@ -1,39 +1,48 @@
-# Use an alpine Node.js runtime as a parent image
-FROM node:14-alpine
+# ============================
+# Stage 1: Build client
+# ============================
+FROM node:14-alpine AS client-build
+
+# Install dependencies required for building
+RUN apk add --no-cache python3 make g++ bash
 
 # Set working directory
 WORKDIR /usr/src/app/client
 
-# Install system dependencies (needed for some npm builds)
-RUN apk add --no-cache python3 make g++
-
-# Copy and install dependencies for the client
-
+# Copy package files and install dependencies
 COPY client/package*.json ./
-
-# Ensure webpack is installed (if not part of package.json)
 RUN npm install
+
+# Ensure webpack tools are installed
 RUN npm install webpack webpack-cli --save-dev
 
-# Copy the rest of the client source
+# Copy remaining source files
 COPY client/ ./
 
-# Give permission to webpack binary just in case
+# Ensure webpack binary is executable
 RUN chmod +x node_modules/.bin/webpack
 
-# Build the client app
-RUN npm run build
+# Run the build
+RUN npx webpack --mode production
 
-# Switch to the server
+
+# ============================
+# Stage 2: Build server
+# ============================
+FROM node:14-alpine AS server-build
+
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /usr/src/app/server
+
 COPY server/package*.json ./
 RUN npm install
 
-# Copy server files
 COPY server/ ./
 
-# Expose port
-EXPOSE 5000
+# Copy built client from previous stage
+COPY --from=client-build /usr/src/app/client/dist ./public
 
-# Start the server
+EXPOSE 8080
+
 CMD ["npm", "start"]
