@@ -29,7 +29,7 @@ RUN npm install
 COPY server/ ./
 
 # Expose port
-EXPOSE 8080
+EXPOSE 5000
 
 # Start the server
 CMD ["npm", "start"]
