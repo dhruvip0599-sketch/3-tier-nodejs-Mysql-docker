@@ -43,6 +43,6 @@ COPY server/ ./
 # Copy built client from previous stage
 COPY --from=client-build /usr/src/app/client/dist ./public
 
-EXPOSE 8080
+EXPOSE 5000
 
 CMD ["npm", "start"]
