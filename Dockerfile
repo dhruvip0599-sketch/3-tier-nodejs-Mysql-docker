@@ -2,14 +2,18 @@
 FROM node:14-alpine
 
 # Set working directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/client
+
+# Install system dependencies (needed for some npm builds)
+RUN apk add --no-cache python3 make g++
 
 # Copy and install dependencies for the client
-WORKDIR /usr/src/app/client
+
 COPY client/package*.json ./
 
 # Ensure webpack is installed (if not part of package.json)
-RUN npm install && npm install webpack webpack-cli --save-dev
+RUN npm install
+RUN npm install webpack webpack-cli --save-dev
 
 # Copy the rest of the client source
 COPY client/ ./
