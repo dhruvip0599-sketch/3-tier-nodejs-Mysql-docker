@@ -1,5 +1,5 @@
 # Use an alpine Node.js runtime as a parent image
-FROM node:14 alpine
+FROM node:14-alpine
 
 # Set the working directory in the container for the client
 WORKDIR /usr/src/app/client
