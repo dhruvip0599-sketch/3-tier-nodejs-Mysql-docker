@@ -18,14 +18,8 @@ spec:
       - name: bankapp
         image: ruvip2308/bankapp:green # Adjust the image tag for the green version
         ports:
-        - containerPort: 8080
-        env:
-        - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://mysql-service:3306/bankappdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-        - name: SPRING_DATASOURCE_USERNAME
-          value: root
-        - name: SPRING_DATASOURCE_PASSWORD
-          value: Test@123
+        - containerPort: 5000
+        
         resources:
           requests:
             memory: "500Mi"
