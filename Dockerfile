@@ -17,8 +17,8 @@ COPY client/ ./
 /RUN chmod +x ./node_modules/.bin/webpack
 
 # Build the client application
-/RUN npm run build
-RUN npx webpack --mode production
+RUN npm run build
+/RUN npx webpack --mode production
 
 
 
