@@ -13,13 +13,8 @@ RUN npm install
 # Copy the client source code
 COPY client/ ./
 
-# Ensure webpack binary is executable
-RUN chmod +x ./node_modules/.bin/webpack
-
 # Build the client application
 RUN npm run build
-
-
 
 # Set the working directory in the container for the server
 WORKDIR /usr/src/app/server
