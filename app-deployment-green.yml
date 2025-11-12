@@ -19,6 +19,16 @@ spec:
         image: ruvip2308/bankapp:green # Adjust the image tag for the green version
         ports:
         - containerPort: 5000
+
+        env:
+        - name: DB_HOST
+          value: "mysql"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASSWORD
+          value: "password"
+        - name: DB_NAME
+          value: "test_db"
         
         resources:
           requests:
